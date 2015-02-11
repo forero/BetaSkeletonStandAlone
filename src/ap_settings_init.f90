@@ -478,74 +478,74 @@ contains
   !  not just fiducial values; depends on the cosmology
   !------------------------------------------
 	subroutine get_minmaxs(printinfo)
-		! Dummy
-		logical, intent(in) :: printinfo
-		! Local 
-		integer :: i
-		real(dl) :: ra, dec, r
-		gbxmindata=logzero; gbxmaxdata=-logzero; gbymindata=logzero; gbymaxdata=-logzero; gbzmindata=logzero; gbzmaxdata=-logzero;
-		gbxminran=logzero;  gbxmaxran=-logzero;  gbyminran=logzero;  gbymaxran=-logzero;  gbzminran=logzero;  gbzmaxran=-logzero;  
-		gbrmindata=logzero; gbrmaxdata=-logzero; gbrminran=logzero;  gbrmaxran=-logzero;
-	    	gbramindata=logzero; gbramaxdata=-logzero; gbdecmindata=logzero; gbdecmaxdata=-logzero; 
-		gbraminran=logzero;  gbramaxran=-logzero;  gbdecminran=logzero;  gbdecmaxran=-logzero;
-		gbraminradecran=logzero;  gbramaxradecran=-logzero;  gbdecminradecran=logzero;  gbdecmaxradecran=-logzero;
-
-		do i = 1, gb_numdata
-			gbxmindata = min(gbxmindata,gb_datalist(i)%x*gb_datalist(i)%rat)
-			gbxmaxdata = max(gbxmaxdata,gb_datalist(i)%x*gb_datalist(i)%rat)
-			gbymindata = min(gbymindata,gb_datalist(i)%y*gb_datalist(i)%rat)
-			gbymaxdata = max(gbymaxdata,gb_datalist(i)%y*gb_datalist(i)%rat)
-			gbzmindata = min(gbzmindata,gb_datalist(i)%z*gb_datalist(i)%rat)
-			gbzmaxdata = max(gbzmaxdata,gb_datalist(i)%z*gb_datalist(i)%rat)
-			gbrmindata = min(gbrmindata,gb_datalist(i)%r*gb_datalist(i)%rat)
-			gbrmaxdata = max(gbrmaxdata,gb_datalist(i)%r*gb_datalist(i)%rat)
-			call xyz_to_radecr(gb_datalist(i)%x,gb_datalist(i)%y,gb_datalist(i)%z,ra,dec,r)
-			gbramindata = min(gbramindata,ra)
-			gbramaxdata = max(gbramaxdata,ra)
-			gbdecmindata = min(gbdecmindata,dec)
-			gbdecmaxdata = max(gbdecmaxdata,dec)
-		enddo
-		do i = 1, gb_numran
-			gbxminran = min(gbxminran,gb_ranlist(i)%x*gb_ranlist(i)%rat)
-			gbxmaxran = max(gbxmaxran,gb_ranlist(i)%x*gb_ranlist(i)%rat)
-			gbyminran = min(gbyminran,gb_ranlist(i)%y*gb_ranlist(i)%rat)
-			gbymaxran = max(gbymaxran,gb_ranlist(i)%y*gb_ranlist(i)%rat)
-			gbzminran = min(gbzminran,gb_ranlist(i)%z*gb_ranlist(i)%rat)
-			gbzmaxran = max(gbzmaxran,gb_ranlist(i)%z*gb_ranlist(i)%rat)
-			gbrminran = min(gbrminran,gb_ranlist(i)%r*gb_ranlist(i)%rat)
-			gbrmaxran = max(gbrmaxran,gb_ranlist(i)%r*gb_ranlist(i)%rat)
-			call xyz_to_radecr(gb_ranlist(i)%x,gb_ranlist(i)%y,gb_ranlist(i)%z,ra,dec,r)
-			gbraminran = min(gbraminran,ra)
-			gbramaxran = max(gbramaxran,ra)
-			gbdecminran = min(gbdecminran,dec)
-			gbdecmaxran = max(gbdecmaxran,dec)
-		enddo
-		do i = 1, gb_numradecran
-			ra = gb_radecranlist(i)%ra; dec = gb_radecranlist(i)%dec
-			gbraminradecran = min(gbraminradecran,ra)
-			gbramaxradecran = max(gbramaxradecran,ra)
-			gbdecminradecran = min(gbdecminradecran,dec)
-			gbdecmaxradecran = max(gbdecmaxradecran,dec)
-		enddo
-		if(printinfo) then
-			print *, '  (get_minmaxs)    Ranges. fmt:  (data), (random), (ra/dec random)'
-			write(*,'(23x,A,2f10.3,A,2f10.3,A)') 'x:    (', real(gbxmindata), real(gbxmaxdata), &
-				'), (', real(gbxminran), real(gbxmaxran), ')'
-			write(*,'(23x,A,2f10.3,A,2f10.3,A)') 'y:   (', real(gbymindata), real(gbymaxdata), & 
-				'), (', real(gbyminran), real(gbymaxran), ')'
-			write(*,'(23x,A,2f10.3,A,2f10.3,A)') 'z:   (', real(gbzmindata), real(gbzmaxdata), &
-				'), (', real(gbzminran), real(gbzmaxran), ')'
-			write(*,'(23x,A,2f10.3,A,2f10.3,A)') 'r:   (', real(gbrmindata), real(gbrmaxdata), &
-				'), (', real(gbrminran), real(gbrmaxran), ')'
-			write(*,'(23x,A,2f10.3,A,2f10.3,A,2f10.3,A)') 'ra:  (', real(gbramindata), real(gbramaxdata), &
-				'), (', real(gbraminran), real(gbramaxran), &
-				'), (', real(gbraminradecran), real(gbramaxradecran), ')'
-			write(*,'(23x,A,2f10.3,A,2f10.3,A,2f10.3,A)') 'dec: (', real(gbdecmindata), real(gbdecmaxdata), &
-				'), (', real(gbdecminran), real(gbdecmaxran) , &
-				'), (', real(gbdecminradecran), real(gbdecmaxradecran), ')'
-		endif
-	end subroutine get_minmaxs
-	
+   ! Dummy
+   logical, intent(in) :: printinfo
+   ! Local 
+   integer :: i
+   real(dl) :: ra, dec, r
+   gbxmindata=logzero; gbxmaxdata=-logzero; gbymindata=logzero; gbymaxdata=-logzero; gbzmindata=logzero; gbzmaxdata=-logzero;
+   gbxminran=logzero;  gbxmaxran=-logzero;  gbyminran=logzero;  gbymaxran=-logzero;  gbzminran=logzero;  gbzmaxran=-logzero;  
+   gbrmindata=logzero; gbrmaxdata=-logzero; gbrminran=logzero;  gbrmaxran=-logzero;
+   gbramindata=logzero; gbramaxdata=-logzero; gbdecmindata=logzero; gbdecmaxdata=-logzero; 
+   gbraminran=logzero;  gbramaxran=-logzero;  gbdecminran=logzero;  gbdecmaxran=-logzero;
+   gbraminradecran=logzero;  gbramaxradecran=-logzero;  gbdecminradecran=logzero;  gbdecmaxradecran=-logzero;
+   
+   do i = 1, gb_numdata
+      gbxmindata = min(gbxmindata,gb_datalist(i)%x*gb_datalist(i)%rat)
+      gbxmaxdata = max(gbxmaxdata,gb_datalist(i)%x*gb_datalist(i)%rat)
+      gbymindata = min(gbymindata,gb_datalist(i)%y*gb_datalist(i)%rat)
+      gbymaxdata = max(gbymaxdata,gb_datalist(i)%y*gb_datalist(i)%rat)
+      gbzmindata = min(gbzmindata,gb_datalist(i)%z*gb_datalist(i)%rat)
+      gbzmaxdata = max(gbzmaxdata,gb_datalist(i)%z*gb_datalist(i)%rat)
+      gbrmindata = min(gbrmindata,gb_datalist(i)%r*gb_datalist(i)%rat)
+      gbrmaxdata = max(gbrmaxdata,gb_datalist(i)%r*gb_datalist(i)%rat)
+      call xyz_to_radecr(gb_datalist(i)%x,gb_datalist(i)%y,gb_datalist(i)%z,ra,dec,r)
+      gbramindata = min(gbramindata,ra)
+      gbramaxdata = max(gbramaxdata,ra)
+      gbdecmindata = min(gbdecmindata,dec)
+      gbdecmaxdata = max(gbdecmaxdata,dec)
+   enddo
+   do i = 1, gb_numran
+      gbxminran = min(gbxminran,gb_ranlist(i)%x*gb_ranlist(i)%rat)
+      gbxmaxran = max(gbxmaxran,gb_ranlist(i)%x*gb_ranlist(i)%rat)
+      gbyminran = min(gbyminran,gb_ranlist(i)%y*gb_ranlist(i)%rat)
+      gbymaxran = max(gbymaxran,gb_ranlist(i)%y*gb_ranlist(i)%rat)
+      gbzminran = min(gbzminran,gb_ranlist(i)%z*gb_ranlist(i)%rat)
+      gbzmaxran = max(gbzmaxran,gb_ranlist(i)%z*gb_ranlist(i)%rat)
+      gbrminran = min(gbrminran,gb_ranlist(i)%r*gb_ranlist(i)%rat)
+      gbrmaxran = max(gbrmaxran,gb_ranlist(i)%r*gb_ranlist(i)%rat)
+      call xyz_to_radecr(gb_ranlist(i)%x,gb_ranlist(i)%y,gb_ranlist(i)%z,ra,dec,r)
+      gbraminran = min(gbraminran,ra)
+      gbramaxran = max(gbramaxran,ra)
+      gbdecminran = min(gbdecminran,dec)
+      gbdecmaxran = max(gbdecmaxran,dec)
+   enddo
+   do i = 1, gb_numradecran
+      ra = gb_radecranlist(i)%ra; dec = gb_radecranlist(i)%dec
+      gbraminradecran = min(gbraminradecran,ra)
+      gbramaxradecran = max(gbramaxradecran,ra)
+      gbdecminradecran = min(gbdecminradecran,dec)
+      gbdecmaxradecran = max(gbdecmaxradecran,dec)
+   enddo
+   if(printinfo) then
+      print *, '  (get_minmaxs)    Ranges. fmt:  (data), (random), (ra/dec random)'
+      write(*,'(23x,A,2f10.3,A,2f10.3,A)') 'x:    (', real(gbxmindata), real(gbxmaxdata), &
+           '), (', real(gbxminran), real(gbxmaxran), ')'
+      write(*,'(23x,A,2f10.3,A,2f10.3,A)') 'y:   (', real(gbymindata), real(gbymaxdata), & 
+           '), (', real(gbyminran), real(gbymaxran), ')'
+      write(*,'(23x,A,2f10.3,A,2f10.3,A)') 'z:   (', real(gbzmindata), real(gbzmaxdata), &
+           '), (', real(gbzminran), real(gbzmaxran), ')'
+      write(*,'(23x,A,2f10.3,A,2f10.3,A)') 'r:   (', real(gbrmindata), real(gbrmaxdata), &
+           '), (', real(gbrminran), real(gbrmaxran), ')'
+      write(*,'(23x,A,2f10.3,A,2f10.3,A,2f10.3,A)') 'ra:  (', real(gbramindata), real(gbramaxdata), &
+           '), (', real(gbraminran), real(gbramaxran), &
+           '), (', real(gbraminradecran), real(gbramaxradecran), ')'
+      write(*,'(23x,A,2f10.3,A,2f10.3,A,2f10.3,A)') 'dec: (', real(gbdecmindata), real(gbdecmaxdata), &
+           '), (', real(gbdecminran), real(gbdecmaxran) , &
+           '), (', real(gbdecminradecran), real(gbdecmaxradecran), ')'
+   endif
+ end subroutine get_minmaxs
+ 
   !------------------------------------------
   ! initializing the halo_info array
   !------------------------------------------

@@ -9,10 +9,6 @@ use ap_BSK
 	logical :: printinfo = .true., do_nglcrosscheck = .false.
 	integer :: numNNB = 100, numarg, nproc, ierr, myid, i, numdrop=1
 
-	! Initialize MPI
-!	call mpi_init(ierr)
-!	call mpi_comm_size(mpi_comm_world,nproc,ierr)
-!	call mpi_comm_rank(mpi_comm_world,myid,ierr)
 
 	! datatype: -1 means x,y,z (see ap_settings_init.f90)
 	gb_i_datatype = -1
@@ -87,7 +83,7 @@ use ap_BSK
 	call BSK(inputfilename, omegam, w, beta, outputfilename, printinfo, numNNB, minimalrcut, maximalrcut, &
 		do_nglcrosscheck, ngldir, outputBSKindex=.true., outputBSKinfo=.true., outputxyz=.true., do_init=.true.)
 
-	call BSK_stat(omegam, w, beta, outputfilename, numdrop, dropstep, printinfo)
+!	call BSK_stat(omegam, w, beta, outputfilename, numdrop, dropstep, printinfo)
 
 !	call mpi_barrier(mpi_comm_world,ierr)
 !	call mpi_finalize(ierr)

@@ -92,66 +92,66 @@ contains
   !------------------------------------------
   ! initialize the xyz_mass array
   !------------------------------------------
-	subroutine init_mult_lists(printinfo)
-		! Dummy
-		logical, intent(in) :: printinfo
-		! Local
-		integer :: i, j
-		real(dl) :: x, y, z, ratio, noRSDratio, r, theta, phi
-
-		if(printinfo) write(*,'(A,i4,i4)'), '   (init_mult_list) Init lists of xyz/r/mass...'
-		call smooth_clean_up()
-		
-		allocate(gb_xyz_list(3,gb_numallpar), gb_mass_list(gb_numallpar), gb_r_list(gb_numallpar))
-		gb_num_xyz_mass = gb_numallpar
-
-		! initializing data points (positive mass halos)
-		do i = 1, gb_numdata
-			! Mass
-			if(gb_usenumdensity) then
-				gb_mass_list(i) = 1.0
-			else
-				gb_mass_list(i) = gb_datalist(i)%mass
-			endif
-			ratio = gb_datalist(i)%rat
-			! Position		
-			x = gb_datalist(i)%x*ratio
-			y = gb_datalist(i)%y*ratio
-			z = gb_datalist(i)%z*ratio
-			r = gb_datalist(i)%r*ratio
-			gb_r_list(i) = r 
-			gb_xyz_list(1,i) = x
-			gb_xyz_list(2,i) = y
-			gb_xyz_list(3,i) = z
-		enddo
-		
-		! initializing mask rans
-		do j = 1, gb_numran
-			i = gb_numdata + j
-			! Mass: will not consider number density for mask rans
-			gb_mass_list(i) = 1.0  ! negative mass for mask rans!!!
-			! Position		
-			gb_xyz_list(1,i) = gb_ranlist(j)%x
-			gb_xyz_list(2,i) = gb_ranlist(j)%y
-			gb_xyz_list(3,i) = gb_ranlist(j)%z
-!			gb_randata(4:6,j)
-			call getSC(gb_xyz_list(1,i),gb_xyz_list(2,i),gb_xyz_list(3,i),r,theta,phi)
-			gb_r_list(i) = r
-			if(abs(r-gb_ranlist(j)%r) > 0.1)  then
-				print *, 'ERROR (init_mult_lists)!: Mismatch r:', r, gb_ranlist(j)%r; stop
-			endif
-		enddo
-
-		if(gb_dodensitynorm) then
-			if(printinfo) write(*,'(29x,A)'), 'Normalizing mass according to <rho>(r)...'
-			! This converts M_i into M_i / rhobar(r_i):
-			!  the masses of all halos are divided by the rhobar(r), 
-			!  to remove the global radial change of density
-			call normn_mlist(printinfo,gb_normn_nbin,gb_normn_nnorm)
-		endif
-		
-	end subroutine init_mult_lists
-
+ subroutine init_mult_lists(printinfo)
+   ! Dummy
+   logical, intent(in) :: printinfo
+   ! Local
+   integer :: i, j
+   real(dl) :: x, y, z, ratio, noRSDratio, r, theta, phi
+   
+   if(printinfo) write(*,'(A,i4,i4)'), '   (init_mult_list) Init lists of xyz/r/mass...'
+   call smooth_clean_up()
+   
+   allocate(gb_xyz_list(3,gb_numallpar), gb_mass_list(gb_numallpar), gb_r_list(gb_numallpar))
+   gb_num_xyz_mass = gb_numallpar
+   
+   ! initializing data points (positive mass halos)
+   do i = 1, gb_numdata
+      ! Mass
+      if(gb_usenumdensity) then
+         gb_mass_list(i) = 1.0
+      else
+         gb_mass_list(i) = gb_datalist(i)%mass
+      endif
+      ratio = gb_datalist(i)%rat
+      ! Position		
+      x = gb_datalist(i)%x*ratio
+      y = gb_datalist(i)%y*ratio
+      z = gb_datalist(i)%z*ratio
+      r = gb_datalist(i)%r*ratio
+      gb_r_list(i) = r 
+      gb_xyz_list(1,i) = x
+      gb_xyz_list(2,i) = y
+      gb_xyz_list(3,i) = z
+   enddo
+   
+   ! initializing mask rans
+   do j = 1, gb_numran
+      i = gb_numdata + j
+      ! Mass: will not consider number density for mask rans
+      gb_mass_list(i) = 1.0  ! negative mass for mask rans!!!
+      ! Position		
+      gb_xyz_list(1,i) = gb_ranlist(j)%x
+      gb_xyz_list(2,i) = gb_ranlist(j)%y
+      gb_xyz_list(3,i) = gb_ranlist(j)%z
+      !			gb_randata(4:6,j)
+      call getSC(gb_xyz_list(1,i),gb_xyz_list(2,i),gb_xyz_list(3,i),r,theta,phi)
+      gb_r_list(i) = r
+      if(abs(r-gb_ranlist(j)%r) > 0.1)  then
+         print *, 'ERROR (init_mult_lists)!: Mismatch r:', r, gb_ranlist(j)%r; stop
+      endif
+   enddo
+   
+   if(gb_dodensitynorm) then
+      if(printinfo) write(*,'(29x,A)'), 'Normalizing mass according to <rho>(r)...'
+      ! This converts M_i into M_i / rhobar(r_i):
+      !  the masses of all halos are divided by the rhobar(r), 
+      !  to remove the global radial change of density
+      call normn_mlist(printinfo,gb_normn_nbin,gb_normn_nnorm)
+   endif
+   
+ end subroutine init_mult_lists
+ 
 
   !------------------------------------------
   ! get the list of x,y,z at centers of cells

@@ -1768,7 +1768,7 @@ contains
   ! Calculate Ra-Dec-Span-Rat (shape of elliptic when projecting a perfect sphere to ra/dec plan)
   !---------------------------------------------------------------  	
 	subroutine init_RDSR()
-		character(len=char_len) :: readinfile = "~/software/data/DEC_vs_RAspan-to-DECspan.txt"
+		character(len=char_len) :: readinfile = "/Users/forero/Dropbox/BetaSkeletonStandAlone/src/DEC_vs_RAspan-to-DECspan.txt"
 		integer :: i
 		call count_line_number(readinfile, gb_RDSR_num)
 		gb_RDSR_num = gb_RDSR_num-1
