@@ -154,7 +154,7 @@ contains
     gb_datafile = inputfilename
     if(do_init) then
        call cosmo_funs_init(printinfo)
-       !   call readin_dataran(printinfo)
+       call readin_dataran(printinfo)
        call init_cosmo(omegam,w,h_dft,printinfo)
        call init_mult_lists(printinfo)
        call do_cell_init((dble(gb_numdata)**0.33), printinfo)		
