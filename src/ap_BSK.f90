@@ -131,7 +131,7 @@ contains
     integer :: i, j, i1, ii2,i2, idiv, di1, tmp_numBSK
     logical :: Connected,erflag
     integer, allocatable :: selected_list(:)
-    character(len=char_len) :: omwstr,tmpstr1,tmpstr2, file_index, file_ngl, file_xyz, file_BSKinfo, cmdstr
+    character(len=char_len) :: omwstr,tmpstr1,tmpstr2, file_index, file_ngl, file_xyz, file_BSKinfo, cmdstr, betastr
     real(dl) :: time1, time2, x,y,z, dx,dy,dz
     type(BSK_Connect), allocatable :: tmp_BSKs(:),tmp_BSKs2(:) ! temporary collection of BSKS
     
@@ -168,7 +168,9 @@ contains
     write(tmpstr1,'(f8.4)') omegam
     write(tmpstr2,'(f8.4)') w
     omwstr = 'om'//trim(adjustl(tmpstr1))//'_w'//trim(adjustl(tmpstr2))
-    file_index = trim(adjustl(outputfilename))//'/'//trim(adjustl(omwstr))
+    write(tmpstr2,'(f8.4)') beta
+    betastr = '_beta'//trim(adjustl(tmpstr2))
+    file_index = trim(adjustl(outputfilename))//'/'//trim(adjustl(omwstr))//trim(adjustl(betastr))
     file_ngl = trim(adjustl(file_index))//'.nglBSK'
     file_index = trim(adjustl(file_index))//'.BSKIndex'
     
@@ -252,7 +254,7 @@ contains
      
      ! information of BSK Connections		
      print *, '       # of Connections: ', gb_numBSKConnect
-     file_BSKinfo =  trim(adjustl(outputfilename))//'/'//trim(adjustl(omwstr))//'.BSKinfo'
+     file_BSKinfo =  trim(adjustl(outputfilename))//'/'//trim(adjustl(omwstr))//trim(adjustl(betastr))//'.BSKinfo'
      if(outputBSKinfo) then
         write(*,'(A,A)'), '  *** information of BSK (fmt: distance, redshift, r, mu) wrote to: ', &
              trim(adjustl(file_BSKinfo))
