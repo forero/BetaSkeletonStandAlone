@@ -1,0 +1,5 @@
+*.o
+*.mod
+*~
+*ipynb_checkpoints*
+*DS_Store
